@@ -1,8 +1,11 @@
-const mqtt = require('mqtt')
-const client = mqtt.connect('mqtt://127.0.0.1')
+const mqttHandler = require('./MqttHandler')
 
-var connected = false
+var mqttClient = new mqttHandler();
 
+mqttClient.connect()
+
+
+/*
 client.on('connect', () => {
   client.subscribe('dht11')
 })
@@ -23,3 +26,5 @@ function handleDht11 (message) {
   console.log('soil moisture: %s', objMessage.soilMoisture)
   connected = (message.toString() === 'true')
 }
+
+*/
