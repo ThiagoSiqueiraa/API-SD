@@ -1,5 +1,7 @@
 const mqtt = require('mqtt')
 const mqttController = require('./MqttController')
+const io = require('./socket-io').io()
+
 class MqttHandler{
   constructor() {
     this.mqttClient = null;
@@ -27,7 +29,10 @@ class MqttHandler{
       console.log('received message %s %s', topic, message)
       switch (topic){
         case 'dht11':
-          return mqttController.insert(message)
+          let parsedMessage = JSON.parse(message)
+          mqttController.insert(message)
+          io.emit('sensorData', parsedMessage);
+          break;
       }
       /*
       switch (topic) {

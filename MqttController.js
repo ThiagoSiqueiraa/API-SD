@@ -1,8 +1,8 @@
 
 const { SensorData } = require('./app/models');
-
 const insert = async(message) => {
   const obj = JSON.parse(message)
+  console.log(obj)
   const isValidPayload = obj && obj.umidity && obj.temperature && obj.soilMisture
   if(isValidPayload){
     const {temperature, umidity, soilMisture} = obj
