@@ -6,5 +6,9 @@ exports.io = function () {
 };
 
 exports.initialize = function(server) {
-  return io = sio(server);
+  return io = sio(server, {
+    cors: {
+      origin: '*',
+    }
+  });
 };
