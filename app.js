@@ -46,7 +46,7 @@ app.post("/send-mqtt", function(req, res) {
 });
 
 app.get("/get/average/week/temperature", async (req, res) => {
-  const averageWeek = await sequelize.query(`SELECT COUNT(*), DAY(createdAt) as day, MONTH(createdAt) as month, YEAR(createdAt) as year, AVG(temperature) as temp, AVG(umidity) as umidity, MIN(createdAt) FROM monitoramento.sensor_data 
+  const averageWeek = await sequelize.query(`SELECT COUNT(*), DAY(createdAt) as day, MONTH(createdAt) as month, YEAR(createdAt) as year, AVG(temperature) as temp, AVG(umidity) as umidity, AVG(soilmoisture) as soilmoisture, MIN(createdAt) FROM monitoramento.sensor_data 
   WHERE YEARWEEK(createdAt)=YEARWEEK(NOW())
   GROUP BY DAY(createdAt), MONTH(createdAt), YEAR(createdAt)
   ORDER BY MIN(createdAt)
@@ -56,7 +56,7 @@ app.get("/get/average/week/temperature", async (req, res) => {
   let averages = []
   averageWeek.forEach((item, index) => {
     label.push(`${item.day}/${item.month}/${item.year}`)
-    averages.push({"temp": item.temp, "umidity": item.umidity})
+    averages.push({"temp": item.temp, "umidity": item.umidity, "soilmoisture": item.soilmoisture})
 
   })
 
